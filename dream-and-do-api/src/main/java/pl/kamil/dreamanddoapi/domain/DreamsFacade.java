@@ -1,7 +1,5 @@
-package pl.kamil.dreamanddoapi.domain.services;
+package pl.kamil.dreamanddoapi.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.kamil.dreamanddoapi.domain.ports.incoming.RetrieveDreams;
@@ -12,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GetDreamsService implements RetrieveDreams {
+public class DreamsFacade implements RetrieveDreams {
     private final DreamsRepository dr;
 
     @Override

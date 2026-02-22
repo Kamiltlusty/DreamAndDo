@@ -5,11 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.kamil.dreamanddoapi.domain.ports.incoming.RetrieveDreams;
 import pl.kamil.dreamanddoapi.domain.ports.outgoing.DreamsRepository;
-import pl.kamil.dreamanddoapi.domain.services.GetDreamsService;
+import pl.kamil.dreamanddoapi.domain.GetDreamsService;
 import pl.kamil.dreamanddoapi.infrastracture.InMemoryDreamsRepository;
 import pl.kamil.dreamanddoapi.infrastracture.entities.Dream;
 
 import java.util.List;
+
+import static pl.kamil.dreamanddoapi.TestUtils.provideDreams;
 
 public class GetDreamUCTest {
     RetrieveDreams dreamsService;
@@ -28,24 +30,5 @@ public class GetDreamUCTest {
         // then
         List<Dream> expected = provideDreams();
         Assertions.assertEquals(expected, actual);
-    }
-
-    static List<Dream> provideDreams() {
-        return List.of(Dream.builder()
-                        .id(1L)
-                        .title("Zrobić zakupy")
-                        .description("")
-                        .build(),
-                Dream.builder()
-                        .id(2L)
-                        .title("Zrobić grę")
-                        .description("")
-                        .build(),
-                Dream.builder()
-                        .id(3L)
-                        .title("Pospać")
-                        .description("")
-                        .build()
-        );
     }
 }
