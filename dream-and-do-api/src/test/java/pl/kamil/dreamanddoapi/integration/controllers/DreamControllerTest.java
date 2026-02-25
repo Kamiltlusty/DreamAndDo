@@ -1,4 +1,4 @@
-package pl.kamil.dreamanddoapi.unit;
+package pl.kamil.dreamanddoapi.integration.controllers;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.kamil.dreamanddoapi.TestUtils.provideDreams;
 
 @WebMvcTest(DreamController.class)
-public class DreamControllerUnitTest {
+public class DreamControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

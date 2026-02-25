@@ -1,13 +1,14 @@
 package pl.kamil.dreamanddoapi.infrastracture;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import pl.kamil.dreamanddoapi.domain.ports.outgoing.DreamsRepository;
 import pl.kamil.dreamanddoapi.infrastracture.entities.Dream;
 
 import java.util.List;
 
-@Repository
-public class InMemoryDreamsRepository implements DreamsRepository {
+@Component
+public class InMemoryDreamsRepositoryImpl implements DreamsRepository {
     @Override
     public List<Dream> findAll() {
         return List.of(Dream.builder()

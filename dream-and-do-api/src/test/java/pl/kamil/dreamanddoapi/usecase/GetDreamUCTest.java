@@ -3,10 +3,10 @@ package pl.kamil.dreamanddoapi.usecase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.kamil.dreamanddoapi.domain.DreamsFacade;
 import pl.kamil.dreamanddoapi.domain.ports.incoming.RetrieveDreams;
 import pl.kamil.dreamanddoapi.domain.ports.outgoing.DreamsRepository;
-import pl.kamil.dreamanddoapi.domain.GetDreamsService;
-import pl.kamil.dreamanddoapi.infrastracture.InMemoryDreamsRepository;
+import pl.kamil.dreamanddoapi.infrastracture.InMemoryDreamsRepositoryImpl;
 import pl.kamil.dreamanddoapi.infrastracture.entities.Dream;
 
 import java.util.List;
@@ -19,8 +19,8 @@ public class GetDreamUCTest {
 
     @BeforeEach
     public void setup() {
-        dr = new InMemoryDreamsRepository();
-        dreamsService = new GetDreamsService(dr);
+        dr = new InMemoryDreamsRepositoryImpl();
+        dreamsService = new DreamsFacade(dr);
     }
 
     @Test
