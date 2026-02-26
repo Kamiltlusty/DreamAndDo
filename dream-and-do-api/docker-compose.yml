@@ -3,11 +3,13 @@ services:
     image: postgres:18.2-alpine
     ports:
       - "5434:5432"
+    environment:
+      PGDATA: /var/lib/postgresql/data
     volumes:
-      - myapp:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     env_file:
       - "secrets.env"
 
 volumes:
-  myapp:
+  pgdata:
 

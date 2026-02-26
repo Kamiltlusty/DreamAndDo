@@ -3,3 +3,7 @@ spring:
     url: ${DEV_DB_URL}
     username: ${DEV_DB_USERNAME}
     password: ${DEV_DB_PASSWORD}
+  sql:
+    init:
+      data-locations: classpath:initial.sql, classpath:dreams.sql
+      mode: always

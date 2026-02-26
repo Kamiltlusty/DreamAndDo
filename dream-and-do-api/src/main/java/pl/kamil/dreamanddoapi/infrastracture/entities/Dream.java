@@ -5,7 +5,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "dream")
 @Builder
 @ToString(of = {"id", "title"})
 @EqualsAndHashCode(of = {"id", "title", "description"})

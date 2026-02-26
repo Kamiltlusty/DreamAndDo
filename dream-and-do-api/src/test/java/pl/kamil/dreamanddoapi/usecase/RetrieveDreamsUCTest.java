@@ -13,7 +13,7 @@ import java.util.List;
 
 import static pl.kamil.dreamanddoapi.TestUtils.provideDreams;
 
-public class GetDreamUCTest {
+public class RetrieveDreamsUCTest {
     RetrieveDreams dreamsService;
     DreamsRepository dr;
 

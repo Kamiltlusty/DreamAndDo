@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GetDreamsIntegTest {
+public class RetrieveDreamsIntegTest {
 
     private RestTestClient client;
     static PostgreSQLContainer postgres;
@@ -32,7 +32,7 @@ public class GetDreamsIntegTest {
                 .withDatabaseName("integration-tests-db")
                 .withUsername("postgres")
                 .withPassword("postgres")
-                .withInitScript("init_postgresql.sql");
+                .withInitScript("schema-${platform}.sql");
     }
 
     @DynamicPropertySource

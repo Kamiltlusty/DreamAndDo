@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface DreamsRepository {
     List<Dream> findAll();
+    Dream save(Dream dream);
 }

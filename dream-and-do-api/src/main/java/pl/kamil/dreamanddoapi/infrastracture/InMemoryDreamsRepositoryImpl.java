@@ -28,4 +28,9 @@ public class InMemoryDreamsRepositoryImpl implements DreamsRepository {
                         .build()
         );
     }
+
+    @Override
+    public Dream save(Dream dream) {
+        return null;
+    }
 }
