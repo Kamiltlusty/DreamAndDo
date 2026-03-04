@@ -1,5 +1,5 @@
-INSERT INTO dream (id, title, description)
-VALUES ('1', 'Zrobić śniadanie', ''),
-       ('2', 'Odrobić lekcje', ''),
-       ('3', 'Przeczytać lekturę', ''),
-       ('4', 'Spakować walizkę', '');
+INSERT INTO dream (title, description)
+VALUES ('Zrobić śniadanie', ''),
+       ('Odrobić lekcje', ''),
+       ('Przeczytać lekturę', ''),
+       ('Spakować walizkę', '');
