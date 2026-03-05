@@ -9,4 +9,5 @@ import java.util.List;
 public interface DreamsRepository {
     List<Dream> findAll();
     Dream save(Dream dream);
+    void deleteByTitle(String title);
 }

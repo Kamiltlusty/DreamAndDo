@@ -1,7 +1,6 @@
 package pl.kamil.dreamanddoapi.infrastracture;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import pl.kamil.dreamanddoapi.domain.ports.outgoing.DreamsRepository;
 import pl.kamil.dreamanddoapi.infrastracture.entities.Dream;
 
@@ -33,4 +32,7 @@ public class InMemoryDreamsRepositoryImpl implements DreamsRepository {
     public Dream save(Dream dream) {
         return null;
     }
+
+    @Override
+    public void deleteByTitle(String title) {}
 }

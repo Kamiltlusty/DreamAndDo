@@ -1,5 +1,6 @@
 package pl.kamil.dreamanddoapi.usecase;
 
+import jakarta.persistence.EntityExistsException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.kamil.dreamanddoapi.domain.DreamsFacade;
+import pl.kamil.dreamanddoapi.domain.exceptions.DreamAlreadyExistsException;
 import pl.kamil.dreamanddoapi.domain.exceptions.MissingDreamException;
 import pl.kamil.dreamanddoapi.domain.ports.incoming.AddDream;
 import pl.kamil.dreamanddoapi.domain.ports.incoming.RetrieveDreams;
@@ -14,6 +16,7 @@ import pl.kamil.dreamanddoapi.domain.ports.outgoing.DreamsRepository;
 import pl.kamil.dreamanddoapi.infrastracture.entities.Dream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -44,10 +47,23 @@ class AddDreamUCTest {
     @Test
     void shouldThrowMissingDream() {
         // given, when, then
-        MissingDreamException actual = Assertions.assertThrows(MissingDreamException.class,
+        MissingDreamException actual = assertThrows(MissingDreamException.class,
                 () -> df.save(null));
 
         String message = "Dream is null";
         assertThat(actual.getMessage()).isEqualTo(message);
+    }
+
+    @Test
+    void whenGivenDreamMatchesExisting_thenShouldThrowDreamAlreadyExistsException() {
+        // given
+        Dream dream = Dream.builder()
+                .title("Zwiedzić Amerykę")
+                .description("Objechać stany: Illinois, Texas, Minnesota")
+                .build();
+        when(dr.save(any(Dream.class))).thenThrow(EntityExistsException.class);
+        // when, then
+        assertThrows(DreamAlreadyExistsException.class,
+                () ->df.save(dream));
     }
 }

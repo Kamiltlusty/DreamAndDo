@@ -6,4 +6,6 @@ import pl.kamil.dreamanddoapi.domain.ports.outgoing.DreamsRepository;
 import pl.kamil.dreamanddoapi.infrastracture.entities.Dream;
 
 @Primary
-public interface JpaDreamsRepository extends JpaRepository<Dream, Integer>, DreamsRepository {}
+public interface JpaDreamsRepository extends JpaRepository<Dream, Integer>, DreamsRepository {
+    void deleteByTitle(String title);
+}

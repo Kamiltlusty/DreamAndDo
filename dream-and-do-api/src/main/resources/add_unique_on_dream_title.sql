@@ -1,0 +1,2 @@
+ALTER TABLE dream
+ADD UNIQUE (title);

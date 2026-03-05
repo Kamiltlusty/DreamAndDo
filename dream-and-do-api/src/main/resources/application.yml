@@ -5,5 +5,5 @@ spring:
     password: ${DEV_DB_PASSWORD}
   sql:
     init:
-      data-locations: classpath:initial.sql, classpath:dreams.sql
+      data-locations: classpath:initial.sql, classpath:dreams.sql, classpath:add_unique_on_dream_title.sql
       mode: always
