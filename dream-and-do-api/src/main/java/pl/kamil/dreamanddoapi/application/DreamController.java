@@ -1,6 +1,7 @@
 package pl.kamil.dreamanddoapi.application;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,16 +29,14 @@ public class DreamController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<DreamDTO> createDream(
+    public ResponseEntity<Void> createDream(
             @RequestBody DreamDTO dreamDTO
     ) {
         try {
-            Dream dream = dm.toDream(dreamDTO);
-            DreamDTO dDTO = dm.toDreamDTO(gds.save(dream));
-            return new ResponseEntity<>(dDTO, HttpStatus.CREATED);
-
-        } catch (MissingDreamException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            gds.save(dm.toDream(dreamDTO));
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 }

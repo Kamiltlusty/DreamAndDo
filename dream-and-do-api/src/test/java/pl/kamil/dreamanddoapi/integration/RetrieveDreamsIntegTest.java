@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import pl.kamil.dreamanddoapi.TestcontainersInitializer;
 import pl.kamil.dreamanddoapi.application.DreamDTO;
