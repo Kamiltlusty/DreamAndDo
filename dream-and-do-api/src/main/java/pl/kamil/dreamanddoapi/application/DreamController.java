@@ -1,13 +1,12 @@
 package pl.kamil.dreamanddoapi.application;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kamil.dreamanddoapi.domain.DreamsFacade;
-import pl.kamil.dreamanddoapi.domain.exceptions.MissingDreamException;
-import pl.kamil.dreamanddoapi.infrastracture.entities.Dream;
+import pl.kamil.dreamanddoapi.domain.exceptions.DreamAlreadyExistsException;
+import pl.kamil.dreamanddoapi.domain.exceptions.DreamNotFoundException;
 
 import java.util.List;
 
@@ -15,12 +14,12 @@ import java.util.List;
 @RequestMapping("/api/dreams")
 @RequiredArgsConstructor
 public class DreamController {
-    private final DreamsFacade gds;
+    private final DreamsFacade df;
     private final DreamMapper dm;
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DreamDTO>> getDreams() {
-        List<DreamDTO> dreams = gds.findAll().stream()
+        List<DreamDTO> dreams = df.findAll().stream()
                 .map(dm::toDreamDTO).toList();
         if (dreams.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -33,10 +32,22 @@ public class DreamController {
             @RequestBody DreamDTO dreamDTO
     ) {
         try {
-            gds.save(dm.toDream(dreamDTO));
+            df.save(dm.toDream(dreamDTO));
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (DataIntegrityViolationException e) {
+        } catch (DreamAlreadyExistsException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
+    @DeleteMapping("/delete/{title}")
+    public ResponseEntity<Void> deleteDream(
+            @PathVariable String title
+    ) {
+        try {
+            df.delete(title);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

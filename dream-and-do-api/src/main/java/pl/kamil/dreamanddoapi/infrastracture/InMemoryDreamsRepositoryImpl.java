@@ -5,6 +5,7 @@ import pl.kamil.dreamanddoapi.domain.ports.outgoing.DreamsRepository;
 import pl.kamil.dreamanddoapi.infrastracture.entities.Dream;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class InMemoryDreamsRepositoryImpl implements DreamsRepository {
@@ -34,5 +35,5 @@ public class InMemoryDreamsRepositoryImpl implements DreamsRepository {
     }
 
     @Override
-    public void deleteByTitle(String title) {}
+    public Optional<Dream> deleteByTitle(String title) {return Optional.of(Dream.builder().build());}
 }

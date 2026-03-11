@@ -2,17 +2,18 @@ package pl.kamil.dreamanddoapi.integration;
 
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import pl.kamil.dreamanddoapi.TestcontainersInitializer;
+import pl.kamil.dreamanddoapi.domain.ports.outgoing.DreamsRepository;
 
 import static pl.kamil.dreamanddoapi.TestcontainersInitializer.postgres;
 
@@ -21,6 +22,9 @@ import static pl.kamil.dreamanddoapi.TestcontainersInitializer.postgres;
 public class AddDreamIntegTest {
     private RestTestClient client;
     private JSONParser parser;
+
+    @Autowired
+    private DreamsRepository dr;
 
     @LocalServerPort
     private Integer port;
@@ -65,6 +69,7 @@ public class AddDreamIntegTest {
 
     @Test
     void shouldThrowConflict_WhenDreamViolatesUniqueConstraintOnTitle() throws ParseException {
+        // given
         String path = "/api/dreams/create";
         String bodyJSON = """
                 {
@@ -79,5 +84,6 @@ public class AddDreamIntegTest {
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.CONFLICT)
                 .expectBody(Void.class);
+
     }
 }

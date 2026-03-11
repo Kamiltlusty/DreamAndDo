@@ -1,17 +1,14 @@
 package pl.kamil.dreamanddoapi.usecase;
 
-import jakarta.persistence.EntityExistsException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 import pl.kamil.dreamanddoapi.domain.DreamsFacade;
 import pl.kamil.dreamanddoapi.domain.exceptions.DreamAlreadyExistsException;
 import pl.kamil.dreamanddoapi.domain.exceptions.MissingDreamException;
-import pl.kamil.dreamanddoapi.domain.ports.incoming.AddDream;
-import pl.kamil.dreamanddoapi.domain.ports.incoming.RetrieveDreams;
 import pl.kamil.dreamanddoapi.domain.ports.outgoing.DreamsRepository;
 import pl.kamil.dreamanddoapi.infrastracture.entities.Dream;
 
@@ -61,7 +58,8 @@ class AddDreamUCTest {
                 .title("Zwiedzić Amerykę")
                 .description("Objechać stany: Illinois, Texas, Minnesota")
                 .build();
-        when(dr.save(any(Dream.class))).thenThrow(EntityExistsException.class);
+        when(dr.save(any(Dream.class)))
+                .thenThrow(DataIntegrityViolationException.class);
         // when, then
         assertThrows(DreamAlreadyExistsException.class,
                 () ->df.save(dream));
